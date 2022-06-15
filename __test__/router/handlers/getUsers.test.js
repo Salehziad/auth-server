@@ -2,8 +2,8 @@
 
 process.env.SECRET = "TEST_SECRET";
 
-const { db, } = require('../../../../../src/auth/models');
-const { handleGetUsers } = require('../../../../../src/auth/router/handlers.js');
+const { db, } = require('../../../src/auth/models');
+const { handleGetUsers } = require('../../../src/auth/router/handlers.js');
 
 beforeAll(async () => {
   await db.sync();
@@ -28,7 +28,7 @@ describe('Router handler for getUsers', () => {
 
     await handleGetUsers(req, res, next);
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(expect.anything());
+    expect(res.json).toEqual(expect.anything());
   });
 
 });

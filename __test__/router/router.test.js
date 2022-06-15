@@ -33,8 +33,8 @@ describe('Auth Router', () => {
 
     expect(response.status).toBe(201);
     expect(userObject.token).toBeDefined();
-    expect(userObject.user.id).toBeDefined();
-    expect(userObject.user.username).toEqual(userData.testUser.username);
+    expect(userObject.id).toBeDefined();
+    expect(userObject.username).toEqual(userData.testUser.username);
   });
 
   it('2 Can signin with basic auth string', async () => {
