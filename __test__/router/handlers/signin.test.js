@@ -2,8 +2,8 @@
 
 process.env.SECRET = "TEST_SECRET";
 
-const { db, users } = require('../../../../../src/auth/models');
-const { handleSignin } = require('../../../../../src/auth/router/handlers.js');
+const { db, users } = require('../../../src/auth/models');
+const { handleSignin } = require('../../../src/auth/router/handlers.js');
 
 beforeAll(async () => {
   await db.sync();
@@ -44,12 +44,11 @@ describe('Testing the signin handler', () => {
     );
   });
 
-  test.skip('Should trigger error handler when no user is present on the request', async () => {
+  test('Should trigger error handler when no user is present on the request', async () => {
     let req = {};
     jest.clearAllMocks();
-
     await handleSignin(req, res, next);
-    expect(res.status).not.toHaveBeenCalled('1');
+    expect(res.status).not.toHaveBeenCalled();
     expect(res.send).not.toHaveBeenCalled();
     expect(res.json).not.toHaveBeenCalled();
     expect(next).toHaveBeenCalled();

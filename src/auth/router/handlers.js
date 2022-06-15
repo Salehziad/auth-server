@@ -21,7 +21,7 @@ async function handleSignup(req, res, next) {
         token: userRecord.token
       };
       // console.log('gggggggggggggggg');
-      res.status(201).json(output);
+      res.status(201).json(userRecord);
   })
   .catch((e) => {
       // console.log("Invalid Tokenhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",e);
@@ -43,7 +43,7 @@ async function handleSignin(req, res, next) {
     // console.log({user});
     res.status(200).json(user);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     next(e);
   }
 }
