@@ -116,11 +116,8 @@ describe('Auth Router', () => {
   });
 
   it('8 Secret Route fails with invalid token', async () => {
-    const validToken='dsugcsjmhtcvbmjhxj2hmgv mahgv'
     const response =await  mockRequest.get('/secret')
-      .set('Authorization', `x ${validToken}`);
-      // console.log("gggggggggggggggggggggggggggggg",response);
-
+      .set('Authorization', `Bearer anyToken`);
     expect(response.status).toBe(403);
     expect(response.text).toEqual("Invalid Login");
   },20000);
