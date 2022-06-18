@@ -2,39 +2,40 @@
 
 const {
   users
-} = require('../models/index.js');
+} = require('../../models-connections');
 
 async function handleSignup(req, res, next) {
+  // empty username/pssword 400
+  // username already used 409
   try {
-    // console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',req.body.password);
-    users.beforeCreate(req.body.password).then(async(hashedPass) => {
-      // console.log("00000000000000000000000000",hashedPass);
-      // console.log(">>>>>>>>>",req.user);
-      // next();
-      let userRecord = await users.create({username:req.body.username,password:hashedPass});
-      // const user = await users.getAll();
-      // console.log({
-      //   user
-      // });
-      const output = {
-        user: userRecord,
-        token: userRecord.token
-      };
-      // console.log('gggggggggggggggg');
-      res.status(201).json(userRecord);
-  })
-  .catch((e) => {
-      // console.log("Invalid Tokenhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",e);
-  })
+    const user = req.body
+    if (Object.keys(user).length === 0) {}
+    let x = user.username;
+    console.log({
+      x
+    });
+    if (x.length === 0) {
+      res.status(403).send('no data entered')
+    }
+    var hashed = await users.beforeCreate(user);
+    let userRecord = await users.create({
+      username: req.body.username,
+      password: hashed,
+      role: req.body.role
+    });
+    const output = {
+      user: userRecord,
+      token: userRecord.token,
+    };
+    res.status(201).json(userRecord);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     next(e);
   }
 }
 
 async function handleSignin(req, res, next) {
   // console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuu',req.user);
-  
   try {
     const user = {
       user: req.user,
@@ -50,7 +51,7 @@ async function handleSignin(req, res, next) {
 
 async function handleGetUsers(req, res, next) {
   try {
-    let come=req.user;
+    let come = req.user;
     // console.log("kkkkkkkkkkkkkkkkkkkk",come);
     // console.log({come});
     // const userRecords = await users.findAll({});

@@ -37,7 +37,8 @@ describe('Testing the signin handler', () => {
           username: expect.any(String),
           password: expect.any(String),
           token: expect.any(String),
-          createdAt: expect.any(Date)
+          createdAt: expect.any(Date),
+          
         }),
       })
     );

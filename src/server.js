@@ -6,6 +6,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 // Esoteric Resources
+const logger=require('./auth/middleware/logger');
 const errorHandler = require('./error-handlers/500.js');
 const notFound = require('./error-handlers/404.js');
 const authRoutes = require('./auth/router/index.js');
@@ -22,12 +23,19 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/',(req,res)=>{
   res.send("welcome heroku");
 })
+const router = require('./api.v1/router/v1');
+const routerV2=require('./api.v1/router/v2')
 // Routes
 app.use(authRoutes);
-
+app.use('/api/v1',router);
+app.use('/api/v2',routerV2);
 // Catchalls
+app.use(logger)
 app.use(notFound);
 app.use(errorHandler);
+
+
+
 
 module.exports = {
   server: app,
