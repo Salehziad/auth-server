@@ -17,6 +17,8 @@
 >### 2- by use online app for this server by heroku 
 >> - [saleh-basic-api-server](https://saleh-bearer-auth.herokuapp.com/)
 
+# UML Diagram
+# ![UML](./src/uml06.PNG)
 
 ## About this server
 > - this server untel now undr workinf and many features will be added soon.
